@@ -22,7 +22,7 @@ export default class Operation extends React.Component {
 	  valDiv = <h3>{this.props.name}</h3>
 	}
     return (
-      <div className="operations">
+      <div className={`operation ${this.props.type}`}>
       	<div className="type"></div>
       	{valDiv}
       </div>
