@@ -19,6 +19,45 @@ input {
   font-size:24px;
 }
 
+.buttons {
+  text-align:center;
+  margin:20px;
+}
+
+.buttons button {
+  width: 70px;
+  height: 70px;
+  font-size:20px;
+  line-height:70px;
+  margin: 10px;
+  color: #FFF;
+  border-radius: 50%;
+  border: 0;
+  background-color: #C62828;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.buttons button.run i {
+  margin-left:5px;
+}
+.buttons button:hover {
+  box-shadow: 0 5px 8px rgba(0,0,0,0.3);
+}
+
+.operations {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.operations .operation {
+  padding:20px;
+  margin:20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
 .app {
   display: flex;
   flex-direction: column;
