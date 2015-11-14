@@ -22,11 +22,13 @@ export default class Operation extends React.Component {
   	  valDiv = <h3>{this.props.name}</h3>
   	}
     return (
-      <div className="operation">
-      	<div className={`type ${this.props.type}`}>{this.props.type}</div>
-      	<div className="value">{valDiv}</div>
-        <button onClick={this.props.remove}>REMOVE</button>
-        <i className="arrow fa fa-arrow-down"></i>
+      <div className="operationwrapper">
+        <div className="operation">
+          <div className={`type ${this.props.type}`}>{this.props.type}</div>
+          <div className="value">{valDiv}</div>
+          <button onClick={this.props.remove}>REMOVE</button>
+        </div>
+        <i className="arrow fa fa-long-arrow-down"></i>
       </div>
     )
   }
