@@ -11,13 +11,13 @@ class App extends React.Component {
   }
   render() { 
     return (
-      <div>
-        <input type="text" value={this.state.title} />
+      <div className="app">
+        <input className="title" type="text" value={this.state.title} />
         <div className="operations">
           {this.state.operations.map((operation) => <Operation type={operation.type} name={operation.name} value={operation.value} />)}
         </div>
-        <button onClick={() => alert("MAKE THIS")}>+</button>
-        <button onClick={() => alert("MAKE THIS")}>+</button>
+        <button onClick={() => alert("MAKE THIS")}><i className="fa fa-plus"></i></button>
+        <button onClick={() => alert("MAKE THIS")}><i className="fa fa-play"></i></button>
       </div>
     )
   }
