@@ -16,15 +16,16 @@ export default class Operation extends React.Component {
 
   render() { 
   	var valDiv;
-	if(this.props.name == "value") {
-	  valDiv = <input type="text" value={this.state.value} onChange={this.valueChanged}/>
-	} else {
-	  valDiv = <h3>{this.props.name}</h3>
-	}
+  	if(this.props.name == "value") {
+  	  valDiv = <input type="text" value={this.state.value} onChange={this.valueChanged}/>
+  	} else {
+  	  valDiv = <h3>{this.props.name}</h3>
+  	}
     return (
       <div className="operation">
       	<div className={`type ${this.props.type}`}>{this.props.type}</div>
       	<div className="value">{valDiv}</div>
+        <button onClick={this.props.remove}>REMOVE</button>
         <i className="arrow fa fa-arrow-down"></i>
       </div>
     )

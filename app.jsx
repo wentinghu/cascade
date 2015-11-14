@@ -26,12 +26,19 @@ class App extends React.Component {
     this.setState({operations: newArray});
   }
 
+  removeOperation(i){
+    console.log(i);
+    var newArray = this.state.operations.slice();
+    newArray.splice(i, 1);
+    this.setState({operations: newArray});
+  }
+
   render() { 
     return (
       <div className="app">
         <input className="title" type="text" value={this.state.title} onChange={this.handleChange}/>
         <div className="operations">
-          {this.state.operations.map((operation) => <Operation type={operation.type} name={operation.name}/>)}
+          {this.state.operations.map((operation, i) => <Operation type={operation.type} name={operation.name} remove={() => this.removeOperation(i)}/>)}
         </div>
         <div className="buttons">
           <button onClick={() => alert("MAKE THIS")}><i className="fa fa-plus"></i></button>
