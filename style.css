@@ -49,8 +49,11 @@ input {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  z-index: 10000;
 }
-
+.operations .operationwrapper {
+  position: relative;
+}
 .operations .operation {
   margin:20px;
   margin-bottom:40px;
@@ -58,9 +61,20 @@ input {
   border-radius: 8px;
   position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
 }
-.operations .operation .arrow {
+.operations .operationwrapper .arrow {
   position: absolute;
+  z-index:1;
+  width:30px;
+  opacity:0.5;
+  height:30px;
+  font-size:30px;
+  text-align:center;
+  display:block;
+  left:50%;
+  margin-left:-15px;
+  bottom:-30px;
 }
 .operations .operation .value {
   display:flex;
