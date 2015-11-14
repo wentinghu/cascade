@@ -21,8 +21,10 @@ class App extends React.Component {
         <div className="operations">
           {this.state.operations.map((operation) => <Operation type={operation.type} name={operation.name}/>)}
         </div>
-        <button onClick={() => alert("MAKE THIS")}><i className="fa fa-plus"></i></button>
-        <button onClick={() => alert("MAKE THIS")}><i className="fa fa-play"></i></button>
+        <div className="buttons">
+          <button onClick={() => alert("MAKE THIS")}><i className="fa fa-plus"></i></button>
+          <button onClick={() => alert("MAKE THIS")} className="run"><i className="fa fa-play"></i></button>
+        </div>
       </div>
     )
   }
