@@ -51,9 +51,7 @@ class Func extends Operation {
     return [output, []];
   }
   makeString() {
-    return `(${this.expects.map((e) => e.makeString()).join(', ')})` +
-      " => " +
-      `(${this.returns.length == 0 ? "void" : this.returns.map((e) => e.makeString()).join(', ')})`;
+    return `Function(${this.expects.map((e) => e.makeString()).join(', ')})`;
   }
 }
 
@@ -61,7 +59,6 @@ export class Add extends Func {
   constructor() {
     super();
     this.expects = [NUM, NUM];
-    this.returns = [NUM];
     this.name = "add";
   } 
   evaluate(stack) {
@@ -73,7 +70,6 @@ export class Sub extends Func {
   constructor() {
     super();
     this.expects = [NUM, NUM];
-    this.returns = [NUM];
     this.name = "subtract";
   } 
   evaluate(stack) {
@@ -85,7 +81,6 @@ export class RangeTo extends Func {
   constructor() {
     super();
     this.expects = [NUM, NUM];
-    this.returns = [NUMARRAY];
     this.name = "range to";
   }
   evaluate(stack) {
@@ -99,7 +94,6 @@ export class RangeUntil extends Func {
   constructor() {
     super();
     this.expects = [NUM, NUM];
-    this.returns = [NUMARRAY];
     this.name = "range until";
   }
   evaluate(stack) {
@@ -113,7 +107,6 @@ export class Map extends Func {
   constructor() {
     super();
     this.expects = [FUNC];
-    this.returns = [];
     this.name = "map";
   }
   evaluate(stack) {
@@ -135,7 +128,6 @@ export class Apply extends Operation {
   constructor() {
     super();
     this.expects = [FUNC];
-    this.returns = [];
     this.type = "apply";
   }
   run(input) {

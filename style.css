@@ -103,6 +103,17 @@ input {
   background-color: #B7C11E;
 }
 
+.operations .result {
+  padding: 20px;
+  margin:20px;
+  text-align:center;
+  color:#FFF;
+  background-color:#F7A916;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
 
 .app {
   display: flex;

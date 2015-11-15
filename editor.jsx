@@ -48,6 +48,10 @@ export default class Editor extends React.Component {
       return [newStack, errors.concat(newErrors)];
     }, [[], []]);
 
+    this.scroll = true;
+    this.scrollElement();
+    setTimeout(()=>this.setScrollFalse(), 500);
+
     var res;
     if (e.length > 0) {
       this.setState({errors: e});
@@ -55,9 +59,9 @@ export default class Editor extends React.Component {
     } else if (output.length == 0) {
       res = "Nothing";
     } else if (output.length == 1) {
-      res = output[0].toString ? output[0].toString() : `${output[0]}`;
+      res = output[0].makeString ? output[0].makeString() : `${output[0]}`;
     } else {
-      res = `(${output.map((e) => e.toString ? e.toString() : e).join(", ")})`;
+      res = `(${output.map((e) => e.makeString ? e.makeString() : e).join(", ")})`;
     }
     this.setState({lastResult: res});
   }
@@ -87,7 +91,7 @@ export default class Editor extends React.Component {
   }
 
   removeOperation(op){
-    this.setState({operations: this.state.operations.filter((e) => e != op)});
+    this.setState({operations: this.state.operations.filter((e) => e != op), lastResult: null});
   }
 
   setScrollFalse() {
@@ -121,11 +125,11 @@ export default class Editor extends React.Component {
               {this.state.operations.map((op) => <Operation key={op.id} ref={op.id} operation={op} remove={() => this.removeOperation(op)}/>)}
             {(() => {
               if (this.state.errors) {
-                return (<ul className="errors">
+                return (<ul key="errors" className="errors">
                   {this.state.errors.map((e) => <li>{e}</li>)}
                 </ul>);
               } else if (this.state.lastResult) {
-                return <div className="result">{this.state.lastResult}</div>;
+                return <div key="result" className="operationwrapper"><div className="result">{this.state.lastResult}</div></div>;
               } else {
                 return false;
               }
