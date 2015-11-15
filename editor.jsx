@@ -154,6 +154,7 @@ export default class Editor extends React.Component {
               <button className="apply" onClick={() => this.addToList(new Apply())}>APPLY</button>
             </div>
             <div className="column">
+
             {[Add, Sub, Mult, Div, Value, RangeTo, RangeUntil, Apply, Map, Insert, Sum, Product, Power].map((op) => <button className="do" onClick={() => this.addToList(new op())}><div className="functionName">{op.label.toUpperCase()}</div></button>)}
             </div>
           </div>

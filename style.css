@@ -18,9 +18,16 @@ input {
   padding-left: 70px;
   margin: 0px;
   font-size:24px;
+  line-height: 24px;
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  width:100%;
+  z-index:9000;
 }
 .backButton {
-  position: absolute;
+  position: fixed;
   top: 3px;
   left: 0px;
   padding: 20px;
@@ -29,12 +36,14 @@ input {
   background-color: #F0563D;
   color:#FFF;
   border:0px;
+  z-index:9001;
 }
 .operations {
   overflow: auto;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  margin-top: 64px;
   margin-bottom:100px;
 }
 .operations .operationwrapper {
@@ -174,7 +183,7 @@ input {
   overflow:hidden;
   box-sizing: border-box;
   padding:0 10px;
-  bottom: 100px;
+  bottom: 95px;
   background-color: #FFF;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
   transition: all ease 0.3s;
@@ -184,7 +193,7 @@ input {
 
 .menu.open {
   padding: 10px;
-  height:calc(100vh - 100px);
+  height:calc(100vh - 159px);
 }
 
 .menu .column {
@@ -340,4 +349,5 @@ input {
   color:#FFF;
   background-color: #7A776D;
   border:0px;
+  margin:0;
 }
