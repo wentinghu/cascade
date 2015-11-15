@@ -11,7 +11,7 @@ export default class Operation extends React.Component {
   }
 
   valueChanged(e){
-    this.setState({value: parseInt(e.target.value)})
+    this.setState({value: e.target.value})
   }
 
   render() { 

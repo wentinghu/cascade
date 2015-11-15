@@ -1,7 +1,15 @@
 import React from 'react/addons';
 import Operation from './operations.jsx';
 import Editor from './editor.jsx'
-import {Add, Sub, Value, Apply} from './Operation.js';
+import {
+  Add,
+  Sub,
+  Value,
+  RangeTo,
+  RangeUntil,
+  Apply,
+  Map
+} from './Operation.js';
 
 var _ = require('lodash');
 
@@ -14,7 +22,7 @@ export default class App extends React.Component {
       procedures: {Test: [new Add(), new Sub(), new Apply()]},
       editing: null
     };
-  }
+  } 
 
   save(title, operations){
     var duplicate = _.clone(this.state.procedures);
