@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 
 export default class Operation extends React.Component {
   constructor(props) {
@@ -30,6 +30,7 @@ export default class Operation extends React.Component {
         </div>
         <i className="arrow fa fa-long-arrow-down"></i>
       </div>
+      
     )
   }
 }

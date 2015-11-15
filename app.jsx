@@ -1,5 +1,8 @@
-import React from 'react';
+import React from 'react/addons';
 import Operation from './operations.jsx';
+
+
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var types = {
   add: "do",
@@ -7,12 +10,13 @@ var types = {
   reduce: "do"
 };
 
+var lastID = 0;
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "New Procedure",
-      operations: [{type: "with", name: "value", value: 2}, {type: "do", name: "value", value: 2}]
+      operations: []
     }
   }
 
@@ -22,7 +26,7 @@ class App extends React.Component {
 
   addToList(valueName){
     var newArray = this.state.operations.slice();
-    newArray.push({type: types[valueName] || "with", name: valueName});
+    newArray.push({type: types[valueName] || "with", name: valueName, key: ++lastID});
     this.setState({operations: newArray});
   }
 
@@ -37,9 +41,11 @@ class App extends React.Component {
     return (
       <div className="app">
         <input className="title" type="text" value={this.state.title} onChange={this.handleChange}/>
-        <div className="operations">
-          {this.state.operations.map((operation, i) => <Operation type={operation.type} name={operation.name} remove={() => this.removeOperation(i)}/>)}
-        </div>
+          <div className="operations" key="operations">
+            <ReactCSSTransitionGroup transitionName='opTransition' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+              {this.state.operations.map((operation, i) => <Operation key={operation.key} type={operation.type} name={operation.name} remove={() => this.removeOperation(i)}/>)}
+            </ReactCSSTransitionGroup>
+          </div>
         <div className="buttons">
           <button onClick={() => alert("MAKE THIS")}><i className="fa fa-plus"></i></button>
           <button onClick={() => alert("MAKE THIS")} className="run"><i className="fa fa-play"></i></button>

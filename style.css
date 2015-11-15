@@ -18,41 +18,15 @@ input {
   margin: 0;
   font-size:24px;
 }
-
-.buttons {
-  text-align:center;
-  margin:20px;
-}
-
-.buttons button {
-  width: 70px;
-  height: 70px;
-  font-size:20px;
-  line-height:70px;
-  margin: 10px;
-  color: #FFF;
-  border-radius: 50%;
-  border: 0;
-  background-color: #C62828;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.buttons button.run i {
-  margin-left:5px;
-}
-.buttons button:hover {
-  box-shadow: 0 5px 8px rgba(0,0,0,0.3);
-}
-
 .operations {
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
-  z-index: 10000;
 }
 .operations .operationwrapper {
   position: relative;
+  padding:0.1px;
+  overflow:hidden;
 }
 .operations .operation {
   margin:20px;
@@ -61,11 +35,9 @@ input {
   border-radius: 8px;
   position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  z-index: 1000;
 }
 .operations .operationwrapper .arrow {
   position: absolute;
-  z-index:1;
   width:30px;
   opacity:0.5;
   height:30px;
@@ -74,7 +46,7 @@ input {
   display:block;
   left:50%;
   margin-left:-15px;
-  bottom:-30px;
+  bottom:0px;
 }
 .operations .operation .value {
   display:flex;
@@ -111,3 +83,83 @@ input {
   padding:0;
   margin:0;
 }
+
+.opTransition-enter {
+  max-height:0;
+}
+
+.opTransition-enter.opTransition-enter-active {
+  max-height:120px;
+  transition: max-height 500ms ease;
+}
+
+.opTransition-leave {
+  max-height:120px;
+}
+
+.opTransition-leave.opTransition-leave-active {
+  max-height:0;
+  transition: max-height 500ms ease;
+}
+
+.opTransition-appear {
+  max-height:0;
+}
+
+.opTransition-appear.opTransitio-appear-active {
+  max-height:120px;
+  margin-top:;
+  transition: all .5s ease;
+}
+
+.menuOpen{
+  position:fixed;
+  width:100%;
+  bottom:0px;
+  height:150px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+}
+
+.menuOpen button{
+  width: auto;
+  height: 40px;
+  font-size:12px;
+  line-height:40px;
+  margin: 10px;
+  color: #FFF;
+  border: 0;
+  background-color: #E92A03;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.buttons {
+  width:100%;
+  position:fixed;
+  bottom:10px;
+  text-align:center;
+  margin:20px;
+}
+
+.buttons button {
+  width: 70px;
+  height: 70px;
+  font-size:20px;
+  line-height:70px;
+  margin: 10px;
+  color: #FFF;
+  border-radius: 50%;
+  border: 0;
+  background-color: #C62828;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.buttons button.run i {
+  margin-left:5px;
+}
+.buttons button:hover {
+  box-shadow: 0 5px 8px rgba(0,0,0,0.3);
+}
+
