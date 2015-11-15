@@ -19,9 +19,11 @@ input {
   font-size:24px;
 }
 .operations {
+  overflow: auto;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+  margin-bottom:100px;
 }
 .operations .operationwrapper {
   position: relative;
@@ -112,34 +114,56 @@ input {
   transition: all .5s ease;
 }
 
-.menuOpen{
-  position:fixed;
-  width:100%;
+.options{
+  background-color: #FFF;
+  position: fixed;
   bottom:0px;
-  height:150px;
+}
+
+.menu {
+  height:0vh;
+  width:100%;
+  overflow:hidden;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
 }
 
-.menuOpen button{
-  width: auto;
+.menu.open {
+  overflow: auto;
+  position: fixed;
+  width:100%;
+  box-sizing: border-box;
+  padding-left:10px;
+  padding-right:10px;
+  background-color: #FFF;
+  bottom: 100px;
+  height:30vh;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+}
+
+.menu button {
+  box-sizing: border-box;
+  margin-top:10px;
+  margin-bottom: :10px;
+  width: 100%;
   height: 40px;
   font-size:12px;
   line-height:40px;
-  margin: 10px;
   color: #FFF;
   border: 0;
-  background-color: #E92A03;
+  background-color: #3A993E;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .buttons {
+  box-sizing: border-box;
+  background-color: #FFF;
   width:100%;
   position:fixed;
-  bottom:10px;
+  bottom:0px;
+  padding-bottom:5px;
   text-align:center;
-  margin:20px;
 }
 
 .buttons button {

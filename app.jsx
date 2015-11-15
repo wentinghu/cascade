@@ -16,8 +16,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       title: "New Procedure",
-      operations: []
+      operations: [],
+      menuOpen: false
     }
+    this.scroll = false;
   }
 
   handleChange(e){
@@ -25,9 +27,13 @@ class App extends React.Component {
   }
 
   addToList(valueName){
+    this.setState({menuOpen: false});
     var newArray = this.state.operations.slice();
     newArray.push({type: types[valueName] || "with", name: valueName, key: ++lastID});
     this.setState({operations: newArray});
+    this.scroll = true;
+    this.scrollElement();
+    setTimeout(()=>this.setScrollFalse(), 500);
   }
 
   removeOperation(i){
@@ -37,24 +43,48 @@ class App extends React.Component {
     this.setState({operations: newArray});
   }
 
+  setScrollFalse() {
+    this.scroll = false;
+  }
+
+  scrollElement() {
+  //store a this ref, and
+    var _this = this;
+    //wait for a paint to do scrolly stuff
+    var animation = () => {
+      var node = document.body;
+      if (node !== undefined) {
+        //and scroll them!
+        node.scrollTop = node.scrollHeight;
+      }
+      if(this.scroll == true){
+        window.requestAnimationFrame(animation);
+      }
+    }
+    window.requestAnimationFrame(animation);
+  }
+
+
   render() { 
     return (
       <div className="app">
         <input className="title" type="text" value={this.state.title} onChange={this.handleChange}/>
-          <div className="operations" key="operations">
+          <div className="operations" id="operations">
             <ReactCSSTransitionGroup transitionName='opTransition' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
               {this.state.operations.map((operation, i) => <Operation key={operation.key} type={operation.type} name={operation.name} remove={() => this.removeOperation(i)}/>)}
             </ReactCSSTransitionGroup>
           </div>
-        <div className="buttons">
-          <button onClick={() => alert("MAKE THIS")}><i className="fa fa-plus"></i></button>
-          <button onClick={() => alert("MAKE THIS")} className="run"><i className="fa fa-play"></i></button>
-        </div>
-        <div className="menu">
-          <button onClick={() => this.addToList("add")}>ADD</button>
-          <button onClick={() => this.addToList("sub")}>SUBTRACT</button>
-          <button onClick={() => this.addToList("reduce")}>REDUCE</button>
-          <button onClick={() => this.addToList("value")}>VALUE</button>
+        <div className="options">
+          <div className="buttons">
+            <button onClick={() => this.setState({menuOpen: true})}><i className="fa fa-plus"></i></button>
+            <button onClick={() => alert("MAKE THIS")} className="run"><i className="fa fa-play"></i></button>
+          </div>
+          <div className={`menu ${this.state.menuOpen ? "open": ""}`}>
+            <button onClick={() => this.addToList("add")}>ADD</button>
+            <button onClick={() => this.addToList("sub")}>SUBTRACT</button>
+            <button onClick={() => this.addToList("reduce")}>REDUCE</button>
+            <button onClick={() => this.addToList("value")}>VALUE</button>
+          </div>
         </div>
       </div>
     )
