@@ -91,12 +91,8 @@ export default class Editor extends React.Component {
   }
 
   removeOperation(op){
-<<<<<<< HEAD
-    this.setState({operations: this.state.operations.filter((e) => e != op)});
-    this.props.save(this.state.title, this.state.operations);
-=======
     this.setState({operations: this.state.operations.filter((e) => e != op), lastResult: null});
->>>>>>> origin/master
+    this.props.save(this.state.title, this.state.operations);
   }
 
   setScrollFalse() {
