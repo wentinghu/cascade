@@ -62,6 +62,7 @@ input {
   color:#FFF;
   background-color: #7A776D;
   border-radius: 0 8px 8px 0;
+  border:0px;
 }
 .operations .operation .value input {
   width: 50%;
@@ -79,15 +80,28 @@ input {
   text-align: center;
   color: #FFF;
 }
-.operations .operation .type.with {
+.operations .operation.apply .type {
+  box-sizing:border-box;
+  width:auto;
+  flex:1;
+  padding-left:80px;
+}
+.operations .operation.apply .value {
+  box-sizing:border-box;
+  width:0px;
+  flex:0;
+  overflow:hidden;
+}
+.operations .operation.with .type {
   background-color: #735D53;
 }
-.operations .operation .type.do {
+.operations .operation.do .type {
   background-color: #59B5A1;
 }
-.operations .operation .type.apply {
+.operations .operation.apply .type {
   background-color: #B7C11E;
 }
+
 
 .app {
   display: flex;
@@ -118,7 +132,7 @@ input {
   max-height:0;
 }
 
-.opTransition-appear.opTransitio-appear-active {
+.opTransition-appear.opTransition-appear-active {
   max-height:120px;
   margin-top:;
   transition: all .5s ease;

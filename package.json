@@ -20,7 +20,9 @@
   "dependencies": {
     "autoprefixer": "^6.1.0",
     "postcss": "^5.0.12",
-    "react": "^0.14.2"
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2",
+    "react-popup": "^0.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.1.21",

@@ -23,8 +23,8 @@ export default class Operation extends React.Component {
     }
     return (
       <div className="operationwrapper">
-        <div className="operation">
-          <div className={`type ${this.props.operation.type}`}>{this.props.operation.type}</div>
+        <div className={`operation ${this.props.operation.type}`}>
+          <div className="type">{this.props.operation.type}</div>
           <div className="value">{valDiv}</div>
           <button onClick={this.props.remove}><i className="fa fa-times"></i></button>
         </div>

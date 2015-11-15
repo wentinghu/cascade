@@ -74,6 +74,7 @@ export class Apply extends Operation {
     super();
     this.expects = [FUNC];
     this.returns = [ANY];
+    this.type = "apply";
   }
   run(input) {
     var output = input.slice();
