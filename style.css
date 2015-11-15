@@ -63,6 +63,7 @@ input {
   background-color: #7A776D;
   border-radius: 0 8px 8px 0;
   border:0px;
+  margin:0;
 }
 .operations .operation .value input {
   width: 50%;
@@ -148,20 +149,29 @@ input {
   height:0vh;
   width:100%;
   overflow:hidden;
+  box-sizing: border-box;
+  padding:0 10px;
+  bottom: 100px;
+  background-color: #FFF;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  transition: all ease 0.3s;
+  position: fixed;
+  display:flex;
 }
 
 .menu.open {
-  overflow: auto;
-  position: fixed;
-  width:100%;
+  padding: 10px;
+  height:calc(100vh - 100px);
+}
+
+.menu .column {
+  flex: 1;
+  padding:10px;
   box-sizing: border-box;
-  padding-left:10px;
-  padding-right:10px;
-  background-color: #FFF;
-  bottom: 100px;
-  height:30vh;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
+  overflow: auto;
+}
+.menu .column.full {
+  background-color: rgba(0,0,0,0.1);
 }
 
 .menu button{
@@ -210,11 +220,29 @@ input {
   border: 0;
   background-color: #F0563D;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   cursor: pointer;
+  overflow:hidden;
+  padding:0;
+  position: relative;
+}
+.buttons button i {
+  transition: all ease 0.5s;
 }
 .buttons button.run i {
   margin-left:5px;
+}
+.buttons.menuOpen button.run {
+  /*width:0;*/
+  margin-left:-80px;
+  opacity:0;
+  z-index:-1;
+  /*margin-right:0;*/
+  /*padding-left:0;*/
+  /*padding-right:0;*/
+}
+.buttons.menuOpen button.openMenu i {
+  transform: rotate(180deg);
 }
 .buttons button:hover {
   box-shadow: 0 5px 8px rgba(0,0,0,0.3);

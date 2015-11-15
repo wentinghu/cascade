@@ -1,7 +1,15 @@
 import React from 'react/addons';
 import Operation from './operations.jsx';
 import Editor from './editor.jsx'
-import {Add, Sub, Value, Apply} from './Operation.js';
+import {
+  Add,
+  Sub,
+  Value,
+  RangeTo,
+  RangeUntil,
+  Apply,
+  Map
+} from './Operation.js';
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -12,7 +20,7 @@ export default class App extends React.Component {
       procedures: [{name: "Test", operations:[new Add(), new Sub(), new Apply()]}],
       editing: null
     };
-  }
+  } 
 
   handleChange(e){
     this.setState({title: e.target.value});

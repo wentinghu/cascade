@@ -1,6 +1,14 @@
 import React from 'react/addons';
 import Operation from './operations.jsx';
-import {Add, Sub, Value, Apply} from './Operation.js';
+import {
+  Add,
+  Sub,
+  Value,
+  RangeTo,
+  RangeUntil,
+  Apply,
+  Map
+} from './Operation.js';
 
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -52,6 +60,14 @@ export default class Editor extends React.Component {
       res = `(${output.map((e) => e.toString ? e.toString() : e).join(", ")})`;
     }
     this.setState({lastResult: res});
+  }
+
+  stringify(e) {
+    if (e instanceof Array) {
+      return `[${e.join(", ")}]`;
+    } else {
+      return `${Math.round(e*1000)/1000}`;
+    }
   }
 
   handleChange(e){
@@ -117,15 +133,22 @@ export default class Editor extends React.Component {
           </ReactCSSTransitionGroup>
         </div>
         <div className="options">
-          <div className="buttons">
-            <button onClick={() => this.setState({menuOpen: true})}><i className="fa fa-plus"></i></button>
+          <div className={`buttons ${this.state.menuOpen ? "menuOpen": ""}`}>
+            <button onClick={() => this.setState({menuOpen: !this.state.menuOpen})} className="openMenu"><i className={`fa fa-${this.state.menuOpen ? "minus" : "plus"}`}></i></button>
             <button onClick={() => this.computeResult()} className="run"><i className="fa fa-play"></i></button>
           </div>
           <div className={`menu ${this.state.menuOpen ? "open": ""}`}>
-            <button className="do" onClick={() => this.addToList(new Add())}>ADD</button>
-            <button className="do" onClick={() => this.addToList(new Sub())}>SUBTRACT</button>
-            <button className="with" onClick={() => this.addToList(new Value())}>VALUE</button>
-            <button className="apply" onClick={() => this.addToList(new Apply())}>APPLY</button>
+            <div className="column full">
+              <button className="with" onClick={() => this.addToList(new Value())}>VALUE</button>
+              <button className="apply" onClick={() => this.addToList(new Apply())}>APPLY</button>
+            </div>
+            <div className="column">
+              <button className="do" onClick={() => this.addToList(new Add())}>ADD</button>
+              <button className="do" onClick={() => this.addToList(new Sub())}>SUBTRACT</button>
+              <button className="do" onClick={() => this.addToList(new RangeTo())}>RANGE TO</button>
+              <button className="do" onClick={() => this.addToList(new RangeUntil())}>RANGE UNTIL</button>
+              <button className="do" onClick={() => this.addToList(new Map())}>MAP</button>
+            </div>
           </div>
         </div>
       </div>
