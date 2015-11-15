@@ -19,6 +19,7 @@
   "homepage": "https://github.com/wentinghu/line#readme",
   "dependencies": {
     "autoprefixer": "^6.1.0",
+    "lodash": "^3.10.1",
     "postcss": "^5.0.12",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",

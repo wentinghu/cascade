@@ -3,15 +3,24 @@ import Operation from './operations.jsx';
 import Editor from './editor.jsx'
 import {Add, Sub, Value, Apply} from './Operation.js';
 
+var _ = require('lodash');
+
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      procedures: [{name: "Test", operations:[new Add(), new Sub(), new Apply()]}],
+      procedures: {Test: [new Add(), new Sub(), new Apply()]},
       editing: null
     };
+  }
+
+  save(title, operations){
+    var duplicate = _.clone(this.state.procedures);
+    duplicate[title] = operations;
+    console.log(duplicate);
+    this.setState({procedures: duplicate});
   }
 
   handleChange(e){
@@ -25,7 +34,9 @@ export default class App extends React.Component {
   }
 
   removeProcedure(proc){
-    this.setState({procedures: this.state.procedures.filter((e) => e != proc)});
+    var duplicate = _.clone(this.state.procedures);
+    delete duplicate[proc];
+    this.setState({procedures: duplicate});
   }
 
   loadProcedure(proc){
@@ -36,20 +47,30 @@ export default class App extends React.Component {
     this.setState({editing: null});
   }
 
+  createNewProc(){
+    this.setState({editing: "New Procedure"});
+  }
+
   render() { 
     if(this.state.editing){
-        return <div><Editor procedure={this.state.editing}/><button onClick={() => this.returnToProcedures()}>Back</button></div>
+        return <div><Editor procedure={this.state.editing} operations={this.state.procedures[this.state.editing]} save={(a, b) => this.save(a,b)}/><button className="backButton" onClick={() => this.returnToProcedures()}><i className="fa fa-arrow-left"></i> </button></div>
     }else{
       return(
         <div className="app">
-          <h1>cascade</h1>
+          <div className="header">
+            <h1>cascade</h1>
+          </div>
           <div className="procedures">
+          <div className="procedureswrapper">
             <ReactCSSTransitionGroup transitionName='opTransition' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-              {this.state.procedures.map((proc) => <div className="procedure"><button onClick={() => this.loadProcedure(proc)}>{proc.name}</button><button onClick={() => this.confirmDelete(proc)}>remove</button></div>)}
+              {_.map(this.state.procedures, (proc, name) => {
+                return <div className="procedure"><button className="procedureName" onClick={() => this.loadProcedure(name)}>{name}</button><button className="delete" onClick={() => this.confirmDelete(name)}><i className="fa fa-times"></i></button></div>
+              })}
             </ReactCSSTransitionGroup>
           </div>
+          </div>
           <div className="buttons">
-            <button onClick={() => this.createNewProc({menuOpen: true})}><i className="fa fa-plus"></i></button>
+            <button onClick={() => this.createNewProc()}><i className="fa fa-plus"></i></button>
           </div>
         </div>
       )

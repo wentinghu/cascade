@@ -10,7 +10,7 @@ export default class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "New Procedure",
+      title: this.props.procedure || "New Procedure",
       operations: [],
       lastResult: null,
       errors: null,
@@ -20,10 +20,9 @@ export default class Editor extends React.Component {
   }
 
   componentWillMount(){
-    if(this.props.procedure){
+    if(this.props.operations){
       var newArray = this.state.operations.slice();
-      this.props.procedure.operations.forEach((op) => {
-        
+      this.props.operations.forEach((op) => {
         var el = <Operation key={op.id} ref={op.id} operation={op} remove={() => this.removeOperation(op)}/>;
         op.element = () => this.refs[op.id];
         this.setState({operations: newArray, lastResult: null, errors: null, menuOpen:false});
@@ -68,10 +67,12 @@ export default class Editor extends React.Component {
     this.scroll = true;
     this.scrollElement();
     setTimeout(()=>this.setScrollFalse(), 500);
+    this.props.save(this.state.title, newArray);
   }
 
   removeOperation(op){
     this.setState({operations: this.state.operations.filter((e) => e != op)});
+    this.props.save(this.state.title, this.state.operations);
   }
 
   setScrollFalse() {
