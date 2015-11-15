@@ -4,14 +4,20 @@ import Editor from './editor.jsx'
 import {
   Add,
   Sub,
+  Mult,
+  Div,
   Value,
   RangeTo,
   RangeUntil,
   Apply,
-  Map
+  Map,
+  Insert,
+  Sum,
+  Product,
+  Power
 } from './Operation.js';
 
-var _ = require('lodash');
+var _= require('lodash');
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 

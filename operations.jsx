@@ -19,6 +19,7 @@ export default class Operation extends React.Component {
     if(this.props.operation.name == "value") {
       valDiv = <input type="text" value={this.state.value} onChange={(e)=>this.valueChanged(e)}/>
     } else {
+      console.log(this.props.operation);
       valDiv = <h3>{this.props.operation.name}</h3>
     }
     return (

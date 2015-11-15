@@ -3,11 +3,17 @@ import Operation from './operations.jsx';
 import {
   Add,
   Sub,
+  Mult,
+  Div,
   Value,
   RangeTo,
   RangeUntil,
   Apply,
-  Map
+  Map,
+  Insert,
+  Sum,
+  Product,
+  Power
 } from './Operation.js';
 
 
@@ -148,11 +154,7 @@ export default class Editor extends React.Component {
               <button className="apply" onClick={() => this.addToList(new Apply())}>APPLY</button>
             </div>
             <div className="column">
-              <button className="do" onClick={() => this.addToList(new Add())}>ADD</button>
-              <button className="do" onClick={() => this.addToList(new Sub())}>SUBTRACT</button>
-              <button className="do" onClick={() => this.addToList(new RangeTo())}>RANGE TO</button>
-              <button className="do" onClick={() => this.addToList(new RangeUntil())}>RANGE UNTIL</button>
-              <button className="do" onClick={() => this.addToList(new Map())}>MAP</button>
+            {[Add, Sub, Mult, Div, Value, RangeTo, RangeUntil, Apply, Map, Insert, Sum, Product, Power].map((op) => <button className="do" onClick={() => this.addToList(new op())}><div className="functionName">{op.label.toUpperCase()}</div></button>)}
             </div>
           </div>
         </div>
