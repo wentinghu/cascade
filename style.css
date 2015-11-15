@@ -18,6 +18,7 @@ input {
   padding-left: 70px;
   margin: 0px;
   font-size:24px;
+  z-index:-2;
 }
 .backButton {
   position: absolute;
@@ -29,6 +30,7 @@ input {
   background-color: #F0563D;
   color:#FFF;
   border:0px;
+  z-index:-1;
 }
 .operations {
   overflow: auto;
