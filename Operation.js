@@ -42,6 +42,21 @@ class Operation {
   }
 }
 
+export class Proc extends Operation {
+  constructor(name, get) {
+    super();
+    this.name = name;
+    this.get = get;
+    this.type = "do user";
+  }
+  run(input) {
+    var output = input.slice();
+    var procs = this.get();
+    procs.forEach((p) => p.run(output));
+    return [output, []];
+  }
+}
+
 class Func extends Operation {
   constructor() {
     super();

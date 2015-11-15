@@ -67,7 +67,7 @@ export default class App extends React.Component {
 
   render() { 
     if(this.state.editing){
-        return <div><Editor procedure={this.state.editing} operations={this.state.procedures[this.state.editing]} save={(a, b) => this.save(a,b)}/><button className="backButton" onClick={() => this.returnToProcedures()}><i className="fa fa-arrow-left"></i> </button></div>
+        return <div><Editor procs={this.state.procedures} procedure={this.state.editing} operations={this.state.procedures[this.state.editing]} save={(a, b) => this.save(a,b)}/><button className="backButton" onClick={() => this.returnToProcedures()}><i className="fa fa-arrow-left"></i> </button></div>
     }else{
       return(
         <div className="app">

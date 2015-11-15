@@ -2,6 +2,7 @@ import React from 'react/addons';
 import Operation from './operations.jsx';
 import {
   Add,
+  Proc,
   Sub,
   Mult,
   Div,
@@ -15,6 +16,8 @@ import {
   Product,
   Power
 } from './Operation.js';
+
+var _ = require("lodash");
 
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -152,6 +155,19 @@ export default class Editor extends React.Component {
             <div className="column full">
               <button className="with" onClick={() => this.addToList(new Value())}>VALUE</button>
               <button className="apply" onClick={() => this.addToList(new Apply())}>APPLY</button>
+              {_.map(
+                _.pick(
+                  this.props.procs,
+                  (v,k) => k != this.props.procedure
+                ),
+                (p,name) => {
+                  return(
+                    <button className="do user" onClick={() => this.addToList(new Proc(name, ()=>this.props.procs[name]))}>
+                      {name.toUpperCase()}
+                    </button>
+                  );
+                }
+              )}
             </div>
             <div className="column">
 
