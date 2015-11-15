@@ -17,7 +17,7 @@ export default class Operation extends React.Component {
   render() { 
   	var valDiv;
   	if(this.props.name == "value") {
-  	  valDiv = <input type="text" value={this.state.value} onChange={this.valueChanged}/>
+  	  valDiv = <input type="text" value={this.state.value} onChange={(e)=>this.valueChanged(e)}/>
   	} else {
   	  valDiv = <h3>{this.props.name}</h3>
   	}
@@ -26,7 +26,7 @@ export default class Operation extends React.Component {
         <div className="operation">
           <div className={`type ${this.props.type}`}>{this.props.type}</div>
           <div className="value">{valDiv}</div>
-          <button onClick={this.props.remove}>REMOVE</button>
+          <button onClick={this.props.remove}><i className="fa fa-times"></i></button>
         </div>
         <i className="arrow fa fa-long-arrow-down"></i>
       </div>

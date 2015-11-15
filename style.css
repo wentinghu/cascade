@@ -12,7 +12,7 @@ input {
 
 .title {
   border: 0;
-  background-color: #F44336;
+  background-color: #F0563D;
   color: #FFF;
   padding: 20px;
   margin: 0;
@@ -56,6 +56,13 @@ input {
   justify-content: center;
   flex: 1;
 }
+.operations .operation button {
+  width:60px;
+  font-size:24px;
+  color:#FFF;
+  background-color: #7A776D;
+  border-radius: 0 8px 8px 0;
+}
 .operations .operation .value input {
   width: 50%;
   border: 0;
@@ -73,10 +80,13 @@ input {
   color: #FFF;
 }
 .operations .operation .type.with {
-  background-color: #9575CD;
+  background-color: #735D53;
 }
 .operations .operation .type.do {
-  background-color: #FFC107;
+  background-color: #59B5A1;
+}
+.operations .operation .type.apply {
+  background-color: #B7C11E;
 }
 
 .app {
@@ -140,7 +150,7 @@ input {
   box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
 }
 
-.menu button {
+.menu button{
   box-sizing: border-box;
   margin-top:10px;
   margin-bottom: :10px;
@@ -150,10 +160,19 @@ input {
   line-height:40px;
   color: #FFF;
   border: 0;
-  background-color: #3A993E;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
   cursor: pointer;
+}
+
+.menu button.with{
+  background-color: #735D53;
+}
+.menu button.do{
+  background-color: #59B5A1;
+}
+.menu button.apply{
+  background-color: #B7C11E;
 }
 
 .buttons {
@@ -175,7 +194,7 @@ input {
   color: #FFF;
   border-radius: 50%;
   border: 0;
-  background-color: #C62828;
+  background-color: #F0563D;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   transition: all 0.3s ease;
   cursor: pointer;

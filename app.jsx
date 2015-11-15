@@ -7,7 +7,8 @@ var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var types = {
   add: "do",
   sub: "do",
-  reduce: "do"
+  reduce: "do",
+  apply: "apply"
 };
 
 var lastID = 0;
@@ -68,7 +69,7 @@ class App extends React.Component {
   render() { 
     return (
       <div className="app">
-        <input className="title" type="text" value={this.state.title} onChange={this.handleChange}/>
+        <input className="title" type="text" value={this.state.title} onChange={(e)=>this.handleChange(e)}/>
           <div className="operations" id="operations">
             <ReactCSSTransitionGroup transitionName='opTransition' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
               {this.state.operations.map((operation, i) => <Operation key={operation.key} type={operation.type} name={operation.name} remove={() => this.removeOperation(i)}/>)}
@@ -80,10 +81,11 @@ class App extends React.Component {
             <button onClick={() => alert("MAKE THIS")} className="run"><i className="fa fa-play"></i></button>
           </div>
           <div className={`menu ${this.state.menuOpen ? "open": ""}`}>
-            <button onClick={() => this.addToList("add")}>ADD</button>
-            <button onClick={() => this.addToList("sub")}>SUBTRACT</button>
-            <button onClick={() => this.addToList("reduce")}>REDUCE</button>
-            <button onClick={() => this.addToList("value")}>VALUE</button>
+            <button className="do" onClick={() => this.addToList("add")}>ADD</button>
+            <button className="do" onClick={() => this.addToList("sub")}>SUBTRACT</button>
+            <button className="do" onClick={() => this.addToList("reduce")}>REDUCE</button>
+            <button className="with" onClick={() => this.addToList("value")}>VALUE</button>
+            <button className="apply" onClick={() => this.addToList("apply")}>APPLY</button>
           </div>
         </div>
       </div>
