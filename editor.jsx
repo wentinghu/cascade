@@ -16,7 +16,7 @@ import {
   Product,
   Power
 } from './Operation.js';
-
+var defaultOperations = [Add, Sub, Mult, Div, Value, RangeTo, RangeUntil, Apply, Map, Insert, Sum, Product, Power]
 var _ = require("lodash");
 
 
@@ -125,6 +125,17 @@ export default class Editor extends React.Component {
     window.requestAnimationFrame(animation);
   }
 
+  updateValue(op) {
+    return _.debounce((newValue) => {
+      this.setState({operations: this.state.operations.map((e) => {
+        if (e.id == op.id) {
+          return newValue;
+        } else {
+          return e;
+        }
+      })})
+    }, 500);
+  }
 
   render() { 
     return (
@@ -132,7 +143,7 @@ export default class Editor extends React.Component {
         <input className="title" type="text" value={this.state.title} onChange={(e)=>this.handleChange(e)}/>
         <div className="operations">
           <ReactCSSTransitionGroup transitionName='opTransition' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-              {this.state.operations.map((op) => <Operation key={op.id} ref={op.id} operation={op} remove={() => this.removeOperation(op)}/>)}
+              {this.state.operations.map((op) => <Operation key={op.id} ref={op.id} operation={op} updateValue={this.updateValue(op)} remove={() => this.removeOperation(op)}/>)}
             {(() => {
               if (this.state.errors) {
                 return (<ul key="errors" className="errors">
@@ -171,7 +182,11 @@ export default class Editor extends React.Component {
             </div>
             <div className="column">
 
-            {[Add, Sub, Mult, Div, Value, RangeTo, RangeUntil, Apply, Map, Insert, Sum, Product, Power].map((op) => <button className="do" onClick={() => this.addToList(new op())}><div className="functionName">{op.label.toUpperCase()}</div></button>)}
+              {defaultOperations.map((op) => {
+                <button className="do" onClick={() => this.addToList(new op())}>
+                  <div className="functionName">{op.label.toUpperCase()}</div>
+                </button>
+              })}
             </div>
           </div>
         </div>

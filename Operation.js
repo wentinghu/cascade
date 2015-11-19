@@ -22,11 +22,6 @@ var NONE = {
   makeString: () => "Void"
 }
 
-function range(low, high) {
-  return new Array(Math.abs(high-low)+1).join().split(',')
-}
-
-
 class Operation {
   constructor() {
     this.id = ++lastID;
@@ -71,7 +66,6 @@ class Func extends Operation {
     return `Function(${this.expects.map((e) => e.makeString()).join(', ')})`;
   }
 }
-
 
 export class Add extends Func {
   constructor() {
@@ -149,7 +143,7 @@ export class RangeTo extends Func {
   evaluate(stack) {
     var high = stack.pop();
     var low = stack.pop();
-    stack.push(range(low, high).join().split(',').map((x,i) => low + i));
+    stack.push(_.range(low, high).join().split(',').map((x,i) => low + i));
   }
 }
 RangeTo.label = "range to";
@@ -163,7 +157,7 @@ export class RangeUntil extends Func {
   evaluate(stack) {
     var high = stack.pop();
     var low = stack.pop();
-    stack.push(range(low, high-1).join().split(',').map((x,i) => low + i));
+    stack.push(_.range(low, high-1).join().split(',').map((x,i) => low + i));
   }
 }
 RangeUntil.label = "range until";
@@ -263,13 +257,14 @@ export class Value extends Operation {
     super();
     this.type = "with";
     this.name="value";
+    this.value=1;
   } 
   makeString() {
-    return `${this.element.state.value}`;
+    return `${this.value}`;
   }
   run(input) {
     var output = input.slice();
-    output.push(parseFloat(this.element().state.value));
+    output.push(parseFloat(this.value));
     return [output, []];
   }
 }

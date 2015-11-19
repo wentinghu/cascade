@@ -1,17 +1,20 @@
 import React from 'react/addons';
+var _ = require('lodash');
 
 export default class Operation extends React.Component {
   constructor(props) {
     super(props);
     if(props.operation.name == "value"){
       this.state = {
-        value: 1
+        value: props.operation.value
       }
     }
   }
 
   valueChanged(e){
-    this.setState({value: e.target.value})
+    this.setState({value: e.target.value});
+    this.props.operation.value = e.target.value;
+    //this.props.updateValue(this.props.operation);
   }
 
   render() { 
