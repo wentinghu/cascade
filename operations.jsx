@@ -14,7 +14,6 @@ export default class Operation extends React.Component {
   valueChanged(e){
     this.setState({value: e.target.value});
     this.props.operation.value = e.target.value;
-    //this.props.updateValue(this.props.operation);
   }
 
   render() { 

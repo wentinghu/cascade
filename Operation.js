@@ -46,9 +46,15 @@ export class Proc extends Operation {
   }
   run(input) {
     var output = input.slice();
-    var procs = this.get();
-    procs.forEach((p) => p.run(output));
+    output.push(this);
     return [output, []];
+  }
+  evaluate(stack) {
+    var procs = this.get();
+    procs.forEach((p) => p.run(stack));
+  }
+  makeString() {
+    return `UserProcedure()`;
   }
 }
 

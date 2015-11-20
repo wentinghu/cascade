@@ -125,25 +125,13 @@ export default class Editor extends React.Component {
     window.requestAnimationFrame(animation);
   }
 
-  updateValue(op) {
-    return _.debounce((newValue) => {
-      this.setState({operations: this.state.operations.map((e) => {
-        if (e.id == op.id) {
-          return newValue;
-        } else {
-          return e;
-        }
-      })})
-    }, 500);
-  }
-
   render() { 
     return (
       <div className="app">
         <input className="title" type="text" value={this.state.title} onChange={(e)=>this.handleChange(e)}/>
         <div className="operations">
           <ReactCSSTransitionGroup transitionName='opTransition' transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}>
-              {this.state.operations.map((op) => <Operation key={op.id} ref={op.id} operation={op} updateValue={this.updateValue(op)} remove={() => this.removeOperation(op)}/>)}
+              {this.state.operations.map((op) => <Operation key={op.id} ref={op.id} operation={op} remove={() => this.removeOperation(op)}/>)}
             {(() => {
               if (this.state.errors) {
                 return (<ul key="errors" className="errors">
@@ -183,9 +171,11 @@ export default class Editor extends React.Component {
             <div className="column">
 
               {defaultOperations.map((op) => {
-                <button className="do" onClick={() => this.addToList(new op())}>
-                  <div className="functionName">{op.label.toUpperCase()}</div>
-                </button>
+                return(
+                  <button className="do" onClick={() => this.addToList(new op())}>
+                    <div className="functionName">{op.label.toUpperCase()}</div>
+                  </button>
+                )
               })}
             </div>
           </div>
