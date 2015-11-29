@@ -25,7 +25,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      procedures: {Test: [new Add(), new Sub(), new Apply()]},
+      procedures: {Test: [new Value(), new Value(), new Add(), new Apply()]},
       editing: null
     };
   } 

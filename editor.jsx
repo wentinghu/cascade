@@ -16,7 +16,7 @@ import {
   Product,
   Power
 } from './Operation.js';
-
+var defaultOperations = [Add, Sub, Mult, Div, RangeTo, RangeUntil, Map, Insert, Sum, Product, Power]
 var _ = require("lodash");
 
 
@@ -128,7 +128,6 @@ export default class Editor extends React.Component {
     window.requestAnimationFrame(animation);
   }
 
-
   render() { 
     return (
       <div className="app">
@@ -173,9 +172,13 @@ export default class Editor extends React.Component {
               )}
             </div>
             <div className="column">
-
-            {[Add, Sub, Mult, Div, RangeTo, RangeUntil, Map, Insert, Sum, Product, Power].map((op) => <button className="do" onClick={() => this.addToList(new op())}><div className="functionName">{op.label.toUpperCase()}</div>
-              <div>{op.helpString()}</div></button>)}
+              {defaultOperations.map((op) => {
+                return(
+                  <button className="do" onClick={() => this.addToList(new op())}>
+                    <div className="functionName">{op.label.toUpperCase()}</div>
+                  </button>
+                )
+              })}
             </div>
           </div>
         </div>

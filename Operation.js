@@ -22,11 +22,6 @@ var NONE = {
   makeString: () => "Void"
 }
 
-function range(low, high) {
-  return new Array(Math.abs(high-low)+1).join().split(',')
-}
-
-
 class Operation {
   constructor() {
     this.id = ++lastID;
@@ -52,9 +47,15 @@ export class Proc extends Operation {
   }
   run(input) {
     var output = input.slice();
-    var procs = this.get();
-    procs.forEach((p) => p.run(output));
+    output.push(this);
     return [output, []];
+  }
+  evaluate(stack) {
+    var procs = this.get();
+    procs.forEach((p) => p.run(stack));
+  }
+  makeString() {
+    return `UserProcedure()`;
   }
 }
 
@@ -75,7 +76,6 @@ class Func extends Operation {
 Func.helpString = function(){
   return `Function(${this.expects.map((e) => e.makeString()).join(', ')})`;
 }
-
 
 export class Add extends Func {
   constructor() {
@@ -158,7 +158,7 @@ export class RangeTo extends Func {
   evaluate(stack) {
     var high = stack.pop();
     var low = stack.pop();
-    stack.push(range(low, high).join().split(',').map((x,i) => low + i));
+    stack.push(_.range(low, high).join().split(',').map((x,i) => low + i));
   }
 }
 RangeTo.expects = [NUM, NUM];
@@ -173,7 +173,7 @@ export class RangeUntil extends Func {
   evaluate(stack) {
     var high = stack.pop();
     var low = stack.pop();
-    stack.push(range(low, high-1).join().split(',').map((x,i) => low + i));
+    stack.push(_.range(low, high-1).join().split(',').map((x,i) => low + i));
   }
 }
 RangeUntil.expects = [NUM, NUM];
@@ -278,13 +278,14 @@ export class Value extends Operation {
     super();
     this.type = "with";
     this.name="value";
+    this.value=1;
   } 
   makeString() {
-    return `${this.element.state.value}`;
+    return `${this.value}`;
   }
   run(input) {
     var output = input.slice();
-    output.push(parseFloat(this.element().state.value));
+    output.push(parseFloat(this.value));
     return [output, []];
   }
 }
