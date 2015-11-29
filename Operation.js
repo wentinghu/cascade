@@ -27,6 +27,9 @@ class Operation {
     this.id = ++lastID;
     this.expects = this.constructor.expects;
   }
+  expand() {
+    return this;
+  }
   get element() {
     return this._element;
   }
@@ -45,18 +48,20 @@ export class Proc extends Operation {
     this.get = get;
     this.type = "do user";
   }
-  run(input) {
-    var output = input.slice();
-    output.push(this);
-    return [output, []];
+  expand() {
+    return this.get().map((op) => op.expand());
   }
-  evaluate(stack) {
-    var procs = this.get();
-    procs.forEach((p) => p.run(stack));
-  }
-  makeString() {
-    return `UserProcedure()`;
-  }
+  //run(input) {
+    //var output = input.concat(this.get());
+    //return [output, []];
+  //}
+  //evaluate(stack) {
+    //var procs = this.get();
+    //procs.forEach((p) => p.run(stack));
+  //}
+  //makeString() {
+    //return `UserProcedure()`;
+  //}
 }
 
 class Func extends Operation {

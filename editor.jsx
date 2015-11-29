@@ -50,7 +50,11 @@ export default class Editor extends React.Component {
   }
 
   computeResult() {
-    var [output, e] = this.state.operations.reduce((last, operation) => {
+    var [output, e] = _.flattenDeep(
+      this.state.operations.map((operation) => {
+        return operation.expand();
+      })
+    ).reduce((last, operation) => {
       var [stack, errors] = last;
       var [newStack, newErrors] = operation.run(stack);
       return [newStack, errors.concat(newErrors)];
@@ -128,6 +132,10 @@ export default class Editor extends React.Component {
     window.requestAnimationFrame(animation);
   }
 
+  getProcedure(name) {
+    return this.props.procs()[name];
+  }
+
   render() { 
     return (
       <div className="app">
@@ -159,12 +167,12 @@ export default class Editor extends React.Component {
               <button className="apply" onClick={() => this.addToList(new Apply())}>APPLY</button>
               {_.map(
                 _.pick(
-                  this.props.procs,
+                  this.props.procs(),
                   (v,k) => k != this.props.procedure
                 ),
                 (p,name) => {
                   return(
-                    <button className="do user" onClick={() => this.addToList(new Proc(name, ()=>this.props.procs[name]))}>
+                    <button className="do user" onClick={() => this.addToList(new Proc(name, ()=>this.getProcedure(name)))}>
                       {name.toUpperCase()}
                     </button>
                   );

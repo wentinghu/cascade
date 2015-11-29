@@ -73,9 +73,29 @@ export default class App extends React.Component {
     this.setState({editing: "New Procedure" + i});
   }
 
+  getProcs() {
+    return this.state.procedures;
+  }
+
   render() { 
     if(this.state.editing){
-        return <div><Editor procs={this.state.procedures} procedure={this.state.editing} operations={this.state.procedures[this.state.editing]} save={(a, b, c) => this.save(a,b, c)} renameProcedure = {(a, b) => this.renameProcedure(a, b)}/><button className="backButton" onClick={() => this.returnToProcedures()}><i className="fa fa-arrow-left"></i> </button></div>
+        return (
+          <div>
+            <Editor 
+              procs={() => this.getProcs()}
+              procedure={this.state.editing}
+              operations={this.state.procedures[this.state.editing]}
+              save={(a, b, c) => this.save(a,b, c)}
+              renameProcedure = {(a, b) => this.renameProcedure(a, b)}
+            />
+            <button
+              className="backButton" 
+              onClick={() => this.returnToProcedures()}
+            >
+              <i className="fa fa-arrow-left"></i>
+            </button>
+          </div>
+        )
     }else{
       return(
         <div className="app">
