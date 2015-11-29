@@ -30,6 +30,7 @@ function range(low, high) {
 class Operation {
   constructor() {
     this.id = ++lastID;
+    this.expects = this.constructor.expects;
   }
   get element() {
     return this._element;
@@ -71,48 +72,54 @@ class Func extends Operation {
     return `Function(${this.expects.map((e) => e.makeString()).join(', ')})`;
   }
 }
+Func.helpString = function(){
+  return `Function(${this.expects.map((e) => e.makeString()).join(', ')})`;
+}
 
 
 export class Add extends Func {
   constructor() {
     super();
-    this.expects = [NUM, NUM];
+    //this.expects = [NUM, NUM];
     this.name="add";
   } 
   evaluate(stack) {
     stack.push(stack.pop() + stack.pop());
   }
 }
+Add.expects = [NUM, NUM];
 Add.label = "add";
 
 export class Sub extends Func {
   constructor() {
     super();
-    this.expects = [NUM, NUM];
+    //this.expects = [NUM, NUM];
     this.name="subtract";
   } 
   evaluate(stack) {
     stack.push(stack.pop() - stack.pop());
   } 
 }
+Sub.expects = [NUM, NUM];
 Sub.label = "subtract";
 
 export class Mult extends Func {
   constructor(){
     super();
-    this.expects = [NUM, NUM];
+    //this.expects = [NUM, NUM];
     this.name="multiply";
   }
   evaluate(stack) {
     stack.push(stack.pop() * stack.pop());
   }
 }
+Mult.expects = [NUM, NUM];
 Mult.label = "multiply";
 
 export class Div extends Func {
   constructor(){
     super();
-    this.expects = [NUM, NUM];
+    //this.expects = [NUM, NUM];
     this.name="divide";
   }
   evaluate(stack) {
@@ -121,13 +128,14 @@ export class Div extends Func {
     stack.push(dividend / divisor);
   }
 }
+Div.expects = [NUM, NUM];
 Div.label = "divide";
 
 
 export class Insert extends Func {
   constructor() {
     super();
-    this.expects = [FUNC];
+    //this.expects = [FUNC];
     this.name="insert";
   }
   evaluate(stack){
@@ -138,12 +146,13 @@ export class Insert extends Func {
     stack.push(newArray);
   }
 }
+Insert.expects = [FUNC];
 Insert.label = "insert";
 
 export class RangeTo extends Func {
   constructor() {
     super();
-    this.expects = [NUM, NUM];
+    //this.expects = [NUM, NUM];
     this.name="range to";
   }
   evaluate(stack) {
@@ -152,12 +161,13 @@ export class RangeTo extends Func {
     stack.push(range(low, high).join().split(',').map((x,i) => low + i));
   }
 }
+RangeTo.expects = [NUM, NUM];
 RangeTo.label = "range to";
 
 export class RangeUntil extends Func {
   constructor() {
     super();
-    this.expects = [NUM, NUM];
+    //this.expects = [NUM, NUM];
     this.name="range until";
   }
   evaluate(stack) {
@@ -166,12 +176,12 @@ export class RangeUntil extends Func {
     stack.push(range(low, high-1).join().split(',').map((x,i) => low + i));
   }
 }
+RangeUntil.expects = [NUM, NUM];
 RangeUntil.label = "range until";
 
 export class Map extends Func {
   constructor() {
     super();
-    this.expects = [FUNC];
     this.name="map";
   }
   evaluate(stack) {
@@ -188,12 +198,13 @@ export class Map extends Func {
     stack.push(replacement);
   }
 }
+Map.expects = [FUNC];
 Map.label = "map";
 
 export class Sum extends Func {
   constructor() {
     super();
-    this.expects = [FUNC];
+    //this.expects = [FUNC];
     this.name="sum";
   }
   evaluate(stack) {
@@ -206,12 +217,13 @@ export class Sum extends Func {
 
   }
 }
+Sum.expects = [FUNC];
 Sum.label = "sum";
 
 export class Product extends Func {
   constructor() {
     super();
-    this.expects = [FUNC];
+    //this.expects = [FUNC];
     this.name="product";
   }
   evaluate(stack) {
@@ -224,12 +236,13 @@ export class Product extends Func {
 
   }
 }
+Product.expects = [FUNC];
 Product.label = "product";
 
 export class Power extends Func {
   constructor() {
     super();
-    this.expects = [FUNC];
+    //this.expects = [FUNC];
     this.name="power";
   }
   evaluate(stack) {
@@ -240,13 +253,14 @@ export class Power extends Func {
 
   }
 }
+Power.expects = [FUNC];
 Power.label = "power";
 
 
 export class Apply extends Operation {
   constructor() {
     super();
-    this.expects = [FUNC];
+    //this.expects = [FUNC];
     this.type = "apply";
     this.name = "apply"
   }
@@ -256,6 +270,7 @@ export class Apply extends Operation {
     return [output, []];
   }
 }
+Apply.expects = [FUNC];
 Apply.label = "apply";
 
 export class Value extends Operation {

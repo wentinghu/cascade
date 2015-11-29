@@ -84,6 +84,7 @@ export default class Editor extends React.Component {
 
   handleChange(e){
     this.setState({title: e.target.value});
+    this.props.save(e.target.value, this.state.operations, this.state.title);
   }
 
   addToList(op){
@@ -93,15 +94,17 @@ export default class Editor extends React.Component {
     var newArray = this.state.operations.slice();
     newArray.push(op);
     this.setState({operations: newArray, lastResult: null, errors: null, menuOpen:false});
+    this.props.save(this.state.title, newArray, "");
     this.scroll = true;
     this.scrollElement();
     setTimeout(()=>this.setScrollFalse(), 500);
-    this.props.save(this.state.title, newArray);
   }
 
   removeOperation(op){
     this.setState({operations: this.state.operations.filter((e) => e != op), lastResult: null});
-    this.props.save(this.state.title, this.state.operations);
+
+    this.props.save(this.state.title, this.state.operations.filter((e) => e != op), "");
+    this.setState({lastResult: null});
   }
 
   setScrollFalse() {
@@ -171,7 +174,8 @@ export default class Editor extends React.Component {
             </div>
             <div className="column">
 
-            {[Add, Sub, Mult, Div, Value, RangeTo, RangeUntil, Apply, Map, Insert, Sum, Product, Power].map((op) => <button className="do" onClick={() => this.addToList(new op())}><div className="functionName">{op.label.toUpperCase()}</div></button>)}
+            {[Add, Sub, Mult, Div, RangeTo, RangeUntil, Map, Insert, Sum, Product, Power].map((op) => <button className="do" onClick={() => this.addToList(new op())}><div className="functionName">{op.label.toUpperCase()}</div>
+              <div>{op.helpString()}</div></button>)}
             </div>
           </div>
         </div>
