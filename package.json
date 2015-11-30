@@ -1,22 +1,24 @@
 {
-  "name": "line",
+  "name": "cascade",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --progress --colors --port 3000"
+    "start": "webpack-dev-server --progress --colors --port 3000",
+    "deploy": "NODE_ENV=production webpack -p",
+    "deploy_Windows": "set NODE_ENV=production&&webpack -p"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wentinghu/line.git"
+    "url": "git+https://github.com/wentinghu/cascade.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wentinghu/line/issues"
+    "url": "https://github.com/wentinghu/cascade/issues"
   },
-  "homepage": "https://github.com/wentinghu/line#readme",
+  "homepage": "https://github.com/wentinghu/cascade#readme",
   "dependencies": {
     "autoprefixer": "^6.1.0",
     "lodash": "^3.10.1",
