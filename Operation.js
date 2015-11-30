@@ -39,11 +39,11 @@ class Operation {
 }
 
 export class Proc extends Operation {
-  constructor(name, get) {
+  constructor(name, get, typeName) {
     super();
     this.name = name;
     this.get = get;
-    this.type = "do user";
+    this.type = typeName();
   }
   run(input) {
     var output = input.slice();

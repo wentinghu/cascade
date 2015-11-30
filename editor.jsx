@@ -111,6 +111,16 @@ export default class Editor extends React.Component {
     this.scroll = false;
   }
 
+  getClassName(name){
+    var size = this.props.procs[name].length;  
+    console.log("LOOK AT THIS");
+    if(this.props.procs[name][size - 1].name == "apply"){
+      return "subroutine";
+    }else{
+      return "function";
+    }
+  }
+
   scrollElement() {
   //store a this ref, and
     var _this = this;
@@ -129,6 +139,7 @@ export default class Editor extends React.Component {
   }
 
   render() { 
+
     return (
       <div className="app">
         <input className="title" type="text" value={this.state.title} onChange={(e)=>this.handleChange(e)}/>
@@ -164,7 +175,7 @@ export default class Editor extends React.Component {
                 ),
                 (p,name) => {
                   return(
-                    <button className="do user" onClick={() => this.addToList(new Proc(name, ()=>this.props.procs[name]))}>
+                    <button className={this.getClassName(name)} onClick={() => this.addToList(new Proc(name, ()=>this.props.procs[name], ()=>this.getClassName(name)))}>
                       {name.toUpperCase()}
                     </button>
                   );
@@ -176,6 +187,7 @@ export default class Editor extends React.Component {
                 return(
                   <button className="do" onClick={() => this.addToList(new op())}>
                     <div className="functionName">{op.label.toUpperCase()}</div>
+                    <div>{op.helpString()}</div>
                   </button>
                 )
               })}

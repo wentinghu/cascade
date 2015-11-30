@@ -123,6 +123,12 @@ input {
 .operations .operation.apply .type {
   background-color: #B7C11E;
 }
+.operations .operation.subroutine .type {
+  background-color: #B7C11E;
+}
+.operations .operation.function .type {
+  background-color: #59B5A1;
+}
 
 .operations .result {
   padding: 20px;
@@ -229,6 +235,12 @@ input {
 }
 .menu button.apply{
   background-color: #B7C11E;
+}
+.menu button.subroutine{
+  background-color: #B7C11E;
+}
+.menu button.function{
+  background-color: #59B5A1;
 }
 
 .buttons {
