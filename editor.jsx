@@ -116,9 +116,9 @@ export default class Editor extends React.Component {
   }
 
   getClassName(name){
-    var size = this.props.procs[name].length;  
+    var size = this.props.procs()[name].length;  
     console.log("LOOK AT THIS");
-    if(this.props.procs[name][size - 1].name == "apply"){
+    if(this.props.procs()[name][size - 1].name == "apply"){
       return "subroutine";
     }else{
       return "function";
