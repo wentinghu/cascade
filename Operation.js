@@ -39,6 +39,9 @@ class Operation {
   run(input) {
     return [input, "This is not implemented yet :("];
   }
+  serialize() {
+    return {name: this.name, className: this.name};
+  }
 }
 
 export class Proc extends Operation {
@@ -46,10 +49,19 @@ export class Proc extends Operation {
     super();
     this.name = name;
     this.get = get;
-    this.type = typeName();
+    this._type = typeName;
   }
   expand() {
     return this.get().map((op) => op.expand());
+  }
+  serialize() {
+    return {name: this.name, className: "proc"};
+  }
+  getType() {
+    console.log("Getting type");
+    var t = this._type();
+    console.log(t);
+    return t;
   }
   //run(input) {
     //var output = input.concat(this.get());
@@ -292,6 +304,9 @@ export class Value extends Operation {
     var output = input.slice();
     output.push(parseFloat(this.value));
     return [output, []];
+  }
+  serialize() {
+    return {name: "value", className: "value", value: this.value};
   }
 }
 Value.label = "value";

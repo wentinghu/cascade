@@ -24,10 +24,12 @@ export default class Operation extends React.Component {
       console.log(this.props.operation);
       valDiv = <h3>{this.props.operation.name}</h3>
     }
+    var type = this.props.operation.type || this.props.operation.getType();
+    console.log(type, this.props.operation.type || this.props.operation.getType());
     return (
       <div className="operationwrapper">
-        <div className={`operation ${this.props.operation.type}`}>
-          <div className="type">{this.props.operation.type}</div>
+        <div className={`operation ${type}`}>
+          <div className="type">{type}</div>
           <div className="value">{valDiv}</div>
           <button onClick={this.props.remove}><i className="fa fa-times"></i></button>
         </div>

@@ -14,10 +14,12 @@ import {
   Insert,
   Sum,
   Product,
-  Power
+  Power,
+  Proc
 } from './Operation.js';
 
 var _= require('lodash');
+var storage = localStorage;
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -25,10 +27,19 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      procedures: {Test: [new Value(), new Value(), new Add(), new Apply()]},
+      procedures: storage.length !== 0 ? this.parseProcs(storage.getItem("procs")) : {Test: [new Value(), new Value(), new Add(), new Apply()]},
       editing: null
     };
   } 
+
+  getClassName(name) {
+    var size = this.state.procedures[name].length;  
+    if(this.state.procedures[name][size - 1].name == "apply"){
+      return "subroutine";
+    }else{
+      return "function";
+    }
+  }
 
   save(newTitle, operations, oldTitle){
     var duplicate = _.clone(this.state.procedures);
@@ -40,10 +51,7 @@ export default class App extends React.Component {
       delete duplicate[oldTitle];
     }
     this.setState({procedures: duplicate});
-  }
-
-  handleChange(e){
-    this.setState({title: e.target.value});
+    this.saveProcs(duplicate);
   }
 
   confirmDelete(proc){
@@ -56,6 +64,59 @@ export default class App extends React.Component {
     var duplicate = _.clone(this.state.procedures);
     delete duplicate[proc];
     this.setState({procedures: duplicate});
+    this.saveProcs(duplicate);
+  }
+
+  saveProcs(procs) {
+    var stripped = {};
+    for (var name in procs) {
+      stripped[name] = procs[name].map((op) => op.serialize());
+    }
+    storage.setItem("procs", JSON.stringify(stripped));
+  }
+
+  parseProcs(str) {
+    var stripped = JSON.parse(str);
+    var procs = {};
+    for (var name in stripped) {
+      procs[name] = stripped[name].map((op) => {
+        switch (op.className) {
+          case "proc":
+            return new Proc(op.name, ()=>this.state.procedures[op.name], ()=>this.getClassName(op.name));
+          case "add":
+            return new Add();
+          case "subtract":
+            return new Sub();
+          case "multiply":
+            return new Mult();
+          case "divide":
+            return new Div();
+          case "insert":
+            return new Insert();
+          case "range to":
+            return new RangeTo();
+          case "range until":
+            return new RangeUntil();
+          case "map":
+            return new Map();
+          case "sum":
+            return new Sum();
+          case "product":
+            return new Product();
+          case "power":
+            return new Power();
+          case "apply":
+            return new Apply();
+          case "value":
+            var v = new Value();
+            v.value = op.value;
+            return v;
+          default:
+            alert(`Unknown class name: ${op.className}`);
+        }
+      });
+    }
+    return procs;
   }
 
   loadProcedure(proc){
@@ -83,6 +144,7 @@ export default class App extends React.Component {
           <div>
             <Editor 
               procs={() => this.getProcs()}
+              getClassName={(name) => this.getClassName(name)}
               procedure={this.state.editing}
               operations={this.state.procedures[this.state.editing]}
               save={(a, b, c) => this.save(a,b, c)}
