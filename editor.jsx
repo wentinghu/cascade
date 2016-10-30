@@ -87,8 +87,11 @@ export default class Editor extends React.Component {
   }
 
   handleChange(e){
-    this.setState({title: e.target.value});
-    this.props.save(e.target.value, this.state.operations, this.state.title);
+    if (e.target.value != "") {
+      var previousTitle = this.state.title;
+      this.setState({title: e.target.value});
+      this.props.save(e.target.value, this.state.operations, previousTitle);
+    }
   }
 
   addToList(op){
@@ -140,7 +143,7 @@ export default class Editor extends React.Component {
     return this.props.procs()[name];
   }
 
-  render() { 
+  render() {
 
     return (
       <div className="app">
