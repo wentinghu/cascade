@@ -87,9 +87,9 @@ export default class Editor extends React.Component {
   }
 
   handleChange(e){
+    this.setState({title: e.target.value});
     if (e.target.value != "") {
       var previousTitle = this.state.title;
-      this.setState({title: e.target.value});
       this.props.save(e.target.value, this.state.operations, previousTitle);
     }
   }
